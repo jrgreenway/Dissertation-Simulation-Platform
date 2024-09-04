@@ -9,19 +9,19 @@ public class MenuController : MonoBehaviour
 
     public void LoadBert()
     {
-        ApiRunner.Run("bert");
+        StartCoroutine(ApiRunner.Run("bert"));
         LoadSceneWithConfig(bertConfig);
     }
 
     public void LoadDistilbert()
     {
-        ApiRunner.Run("distilbert");
+        StartCoroutine(ApiRunner.Run("distilbert"));
         LoadSceneWithConfig(distilbertConfig);
     }
 
     public void LoadXlnet()
     {
-        ApiRunner.Run("xlnet");
+        StartCoroutine(ApiRunner.Run("xlnet"));
         LoadSceneWithConfig(xlnetConfig);
     }
 

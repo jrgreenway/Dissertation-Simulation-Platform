@@ -10,8 +10,9 @@ public class ApiRunner
         string url = "http://localhost:8000/model";
 
         string req = "{\"model\": \"" + args + "\"}";
-
+        Debug.Log("Sending JSON payload: " + req);
         UnityWebRequest request = new UnityWebRequest(url, "POST");
+        
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(req);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
