@@ -1,27 +1,32 @@
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class ApiRunner
 { 
     private static Process process;
-    public static void Run(string args)
+    public static IEnumerator Run(string args)
     {
-        string scriptPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "API", "api.py"));
-        ProcessStartInfo psi = new ProcessStartInfo();
-        string pythonExePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "venv", "Scripts", "python.exe"));
+        string url = "http://localhost:8000/model";
 
-        psi.FileName = pythonExePath;
+        // Create a UnityWebRequest for a POST request
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(args);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-        psi.Arguments = $"\"{scriptPath}\" {args}";
+        // Send the request and wait for a response
+        yield return request.SendWebRequest();
 
-        psi.UseShellExecute = false;
-
-        process = new Process
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            StartInfo = psi,
-            EnableRaisingEvents = true
-        };
-        process.Start();
-
+            Debug.LogError($"Request error: {request.error}");
+        }
+        else
+        {
+            Debug.Log($"Response: {request.downloadHandler.text}");
+        }
     }
 }
