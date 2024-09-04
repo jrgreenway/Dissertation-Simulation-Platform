@@ -9,8 +9,10 @@ public class ApiRunner
     {
         string url = "http://localhost:8000/model";
 
+        string req = "{\"model\": \"" + args + "\"}";
+
         UnityWebRequest request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(args);
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(req);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ConfigurationLoader : MonoBehaviour
 {
-    public ModelVersionConfig config;
     public TextMeshProUGUI text;
 
     // Start is called before the first frame update
@@ -17,6 +16,6 @@ public class ConfigurationLoader : MonoBehaviour
     // Update is called once per frame
     void ApplyConfig()
     {
-        text.text = config.modelName.ToUpper();
+        text.text = SceneData.ModelVersionConfig.modelName.ToUpper();
     }
 }

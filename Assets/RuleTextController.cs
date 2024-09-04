@@ -17,7 +17,7 @@ public class RuleTextController : MonoBehaviour
 
     IEnumerator CallAPI()
     {
-        string apiURL = "https://127.0.0.1:8000/get";
+        string apiURL = "http://127.0.0.1:8000/get";
 
         float shipSpeed = shipController.CurrentSpeed;
         Vector3 shipPosition = shipController.transform.position;
@@ -46,14 +46,11 @@ public class RuleTextController : MonoBehaviour
 
     void Update()
     {
-        // Update the time since the last API call
         timeSinceLastCall += Time.deltaTime;
-
-        // Call API every 'callInterval' seconds
         if (timeSinceLastCall >= callInterval)
         {
             StartCoroutine(CallAPI());
-            timeSinceLastCall = 0f; // Reset the timer
+            timeSinceLastCall = 0f;
         }
     }
 }
