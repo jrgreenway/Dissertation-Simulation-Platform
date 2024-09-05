@@ -3,6 +3,19 @@ using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
 
+[System.Serializable]
+public class RuleResponse
+{
+    public string label;
+}
+public class ShipData
+{
+    public float Speed_2;
+    public float X_2;
+    public float Y_2;
+    public float Heading_2;
+}
+
 public class RuleTextController : MonoBehaviour
 {
     public TextMeshProUGUI responseText; 
@@ -16,19 +29,26 @@ public class RuleTextController : MonoBehaviour
     }
 
     IEnumerator CallAPI()
+        // This function sends a POST request to the API with the current ship data, receives a response, and displays the rule in the UI
     {
         string apiURL = "http://127.0.0.1:8000/get";
-
-        float shipSpeed = shipController.CurrentSpeed;
+        float shipSpeed = (shipController.CurrentSpeed/20)*(25);
         Vector3 shipPosition = shipController.transform.position;
         float shipHeading = shipController.CurrentHeading;
-        WWWForm form = new WWWForm();
-        form.AddField("Speed_2", shipSpeed.ToString());
-        form.AddField("X_2", shipPosition.x.ToString());
-        form.AddField("Y_2", shipPosition.y.ToString());
-        form.AddField("Heading_2", shipHeading.ToString());
-
-        UnityWebRequest request = UnityWebRequest.Post(apiURL, form);
+        ShipData shipData = new ShipData
+        {
+            Speed_2 = shipSpeed,
+            X_2 = shipPosition.x,
+            Y_2 = shipPosition.y,
+            Heading_2 = shipHeading
+        };
+        string jsonPayload = JsonUtility.ToJson(shipData);
+        Debug.Log("Sending JSON: " + jsonPayload);
+        UnityWebRequest request = new UnityWebRequest(apiURL, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
 
@@ -38,9 +58,10 @@ public class RuleTextController : MonoBehaviour
         }
         else
         {
-
             string responseData = request.downloadHandler.text;
-            responseText.text = "Rule: " + responseData;
+            RuleResponse ruleResponse = JsonUtility.FromJson<RuleResponse>(responseData);
+            responseText.text = "Rule: " + ruleResponse.label;
+            Debug.Log("Response: " + responseData);
         }
     }
 

@@ -4,16 +4,15 @@ using TMPro;
 using UnityEngine;
 
 public class ConfigurationLoader : MonoBehaviour
+    //This script loads the model configuration data into the scene, applying text to display the model name at the top of the screen
 {
     public TextMeshProUGUI text;
 
-    // Start is called before the first frame update
     void Start()
     {
         ApplyConfig();
     }
 
-    // Update is called once per frame
     void ApplyConfig()
     {
         text.text = SceneData.ModelVersionConfig.modelName.ToUpper();

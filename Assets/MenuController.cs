@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
+    // Each of the methods activate on button clicks in the main menu, loading the respective model configuration and scene.
 {
     public ModelVersionConfig bertConfig;
     public ModelVersionConfig distilbertConfig;

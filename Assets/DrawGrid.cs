@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class GridInitializer : MonoBehaviour
+    // A useful script which was used to draw a grid on the Tilemap in the Unity Editor, 1000x1000 tiles
 {
     public Tilemap tilemap;
     public TileBase gridTile;

@@ -509,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   responseText: {fileID: 1565821849}
   shipController: {fileID: 2415986707523903657}
-  callInterval: 10
+  callInterval: 5
 --- !u!1001 &543209185
 PrefabInstance:
   m_ObjectHideFlags: 0

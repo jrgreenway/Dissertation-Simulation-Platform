@@ -6,6 +6,8 @@ using System.Collections;
 public class ApiRunner
 { 
     public static IEnumerator Run(string args)
+        /* This function sends a POST request to the API with the model name as the payload to configure the API for that model
+           It is called as ApiRunner.Run() when a menu button is pressed */ 
     {
         string url = "http://localhost:8000/model";
 

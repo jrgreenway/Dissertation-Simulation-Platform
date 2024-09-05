@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 
 public class ShipHUD : MonoBehaviour
+    // This class handles displaying ship statistics on the overlay at the top of the screen
 {
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI headingText;       

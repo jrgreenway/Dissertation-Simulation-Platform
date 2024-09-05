@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipController : MonoBehaviour
+    // This script is attached to the ship object in the Ship scene to control the ship's movement and rotation
 {
     public float maxSpeed = 10f;        
     public float acceleration = 2f;    
@@ -27,6 +28,7 @@ public class ShipController : MonoBehaviour
     }
 
     void HandleInput()
+        // This function handles the ship's movement and rotation based on user input
     {
         if (Input.GetKey(KeyCode.W))
         {
@@ -55,15 +57,19 @@ public class ShipController : MonoBehaviour
     }
 
     void MoveShip()
+        // This function moves the ship based on its current speed
     {
         transform.Translate(Vector3.up * currentSpeed * Time.deltaTime);
     }
 
     void RotateShip()
+        // This function rotates the ship based on the target rotation
     {
         currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, rotationSmoothness);
         transform.rotation = Quaternion.Euler(0, 0, currentRotation);
     }
+
+    // Properties to access ship data from other scripts
     public float CurrentSpeed => currentSpeed;
     public float CurrentHeading => currentRotation;
     public Vector3 CurrentPosition => transform.position;
