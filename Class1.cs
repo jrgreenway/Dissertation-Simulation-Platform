@@ -1,8 +1,0 @@
-﻿
-
-
-{
-    internal class Class1
-    {
-    }
-}
