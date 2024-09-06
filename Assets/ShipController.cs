@@ -46,14 +46,14 @@ public class ShipController : MonoBehaviour
 
         currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            targetRotation += rotationSpeed * Time.deltaTime;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            targetRotation -= rotationSpeed * Time.deltaTime;
-        }
+    if (Input.GetKey(KeyCode.A)) 
+    {
+        targetRotation += rotationSpeed * Time.deltaTime;
+    }
+    else if (Input.GetKey(KeyCode.D)) 
+    {
+        targetRotation -= rotationSpeed * Time.deltaTime;
+    }
     }
 
     void MoveShip()
@@ -66,6 +66,7 @@ public class ShipController : MonoBehaviour
         // This function rotates the ship based on the target rotation
     {
         currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, rotationSmoothness);
+        currentRotation = (currentRotation + 360) % 360;
         transform.rotation = Quaternion.Euler(0, 0, currentRotation);
     }
 
